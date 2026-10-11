@@ -10,7 +10,7 @@ private:
     static int _usosFuncionesExternas;
 
 public:
-    // Métodos estáticos de control y registro
+    // Metodos estaticos de control y registro
     static void reiniciar();
     static void incrementarIteraciones(long long cantidad = 1);
     static void registrarMemoria(size_t bytes);
