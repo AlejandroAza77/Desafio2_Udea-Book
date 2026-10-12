@@ -9,6 +9,7 @@ add_executable(Desafio2 main.cpp
     medidor.h medidor.cpp
     lista.h
     fecha.h fecha.cpp
+    solicitud.h solicitud.cpp
 )
 
 include(GNUInstallDirs)
