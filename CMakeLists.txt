@@ -12,6 +12,7 @@ add_executable(Desafio2 main.cpp
     solicitud.h solicitud.cpp
     cadena.h cadena.cpp
     foto.h foto.cpp
+    album.h album.cpp
 )
 
 include(GNUInstallDirs)
