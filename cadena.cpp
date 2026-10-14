@@ -1,5 +1,5 @@
-#include "cadena.h"
-#include "medidor.h"
+#include "Cadena.h"
+#include "Medidor.h"
 
 static size_t mi_strlen(const char* str) {
     size_t len = 0;
@@ -20,15 +20,12 @@ static void mi_strcpy(char* destino, const char* origen) {
     destino[i] = '\0';
 }
 
-// Constructor por defecto
 Cadena::Cadena() {
     _longitud = 0;
     _buffer = new char[1];
     _buffer[0] = '\0';
-    Medidor::registrarMemoria(sizeof(char));
 }
 
-// Constructor desde una cadena literal C (const char*)
 Cadena::Cadena(const char* str) {
     if (str == nullptr) {
         _longitud = 0;
@@ -39,15 +36,12 @@ Cadena::Cadena(const char* str) {
         _buffer = new char[_longitud + 1];
         mi_strcpy(_buffer, str);
     }
-    Medidor::registrarMemoria((_longitud + 1) * sizeof(char));
 }
-
 // Constructor de copia
 Cadena::Cadena(const Cadena& otra) {
     _longitud = otra._longitud;
     _buffer = new char[_longitud + 1];
     mi_strcpy(_buffer, otra._buffer);
-    Medidor::registrarMemoria((_longitud + 1) * sizeof(char));
 }
 
 // Destructor
@@ -66,21 +60,32 @@ const char* Cadena::c_str() const {
     return _buffer;
 }
 
-// Operador de asignacion
+void Cadena::setTexto(const char* nuevoTexto) {
+    size_t nuevaLongitud = mi_strlen(nuevoTexto);   // nullptr se trata como ""
+    char* nuevo = new char[nuevaLongitud + 1];
+    mi_strcpy(nuevo, nuevoTexto);
+    delete[] _buffer;
+    _buffer = nuevo;
+    _longitud = nuevaLongitud;
+}
+
+bool Cadena::estaVacia() const {
+    return _longitud == 0;
+}
+
+// Asignacion: tambien reserva antes de liberar
 Cadena& Cadena::operator=(const Cadena& otra) {
     if (this != &otra) {
-        if (_buffer != nullptr) {
-            delete[] _buffer;
-        }
+        char* nuevo = new char[otra._longitud + 1];
+        mi_strcpy(nuevo, otra._buffer);
+        delete[] _buffer;
+        _buffer = nuevo;
         _longitud = otra._longitud;
-        _buffer = new char[_longitud + 1];
-        mi_strcpy(_buffer, otra._buffer);
-        Medidor::registrarMemoria((_longitud + 1) * sizeof(char));
     }
     return *this;
 }
 
-// Operador de igualdad
+// Igualdad: mismo largo y mismos caracteres
 bool Cadena::operator==(const Cadena& otra) const {
     if (_longitud != otra._longitud) return false;
     for (size_t i = 0; i < _longitud; ++i) {
