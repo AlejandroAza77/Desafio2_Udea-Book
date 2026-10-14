@@ -6,30 +6,32 @@
 
 class Cadena {
 private:
-    char* _buffer;
-    size_t _longitud;
+    char* _buffer;       // texto terminado en '\0'
+    size_t _longitud;    // cantidad de caracteres, sin contar el '\0'
 
 public:
-    // Constructores y destructor
-    Cadena();
-    Cadena(const char* str);
-    Cadena(const Cadena& otra);
+
+    Cadena();                       // texto vacio
+    Cadena(const char* str);        // a partir de un texto de C
+    Cadena(const Cadena& otra);     // constructor de copia
     ~Cadena();
 
-    // Getters
     size_t getLongitud() const;
     const char* c_str() const;
 
-    // Sobrecarga de operadores
+    void setTexto(const char* nuevoTexto);
+
+    // Consulta
+    bool estaVacia() const;
+
+    // Operadores sobrecargados
     Cadena& operator=(const Cadena& otra);
     bool operator==(const Cadena& otra) const;
-    char& operator[](size_t indice);
+    char& operator[](size_t indice);               // el indice debe ser valido
     const char& operator[](size_t indice) const;
 
-    // Métodos utilitarios
     long calcularMemoria() const;
 
-    // Sobrecarga de operador de salida para std::cout
     friend std::ostream& operator<<(std::ostream& os, const Cadena& cad);
 };
 
