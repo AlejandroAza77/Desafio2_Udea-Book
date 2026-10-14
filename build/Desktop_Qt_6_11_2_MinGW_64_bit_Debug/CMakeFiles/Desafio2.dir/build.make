@@ -96,21 +96,69 @@ CMakeFiles/Desafio2.dir/medidor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Desafio2.dir/medidor.cpp.s"
 	C:\Qt\Tools\mingw1310_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\melan\Desktop\QT\Desafio2\Desafio2\medidor.cpp -o CMakeFiles\Desafio2.dir\medidor.cpp.s
 
+CMakeFiles/Desafio2.dir/fecha.cpp.obj: CMakeFiles/Desafio2.dir/flags.make
+CMakeFiles/Desafio2.dir/fecha.cpp.obj: C:/Users/melan/Desktop/QT/Desafio2/Desafio2/fecha.cpp
+CMakeFiles/Desafio2.dir/fecha.cpp.obj: CMakeFiles/Desafio2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\melan\Desktop\QT\Desafio2\Desafio2\build\Desktop_Qt_6_11_2_MinGW_64_bit_Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Desafio2.dir/fecha.cpp.obj"
+	C:\Qt\Tools\mingw1310_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Desafio2.dir/fecha.cpp.obj -MF CMakeFiles\Desafio2.dir\fecha.cpp.obj.d -o CMakeFiles\Desafio2.dir\fecha.cpp.obj -c C:\Users\melan\Desktop\QT\Desafio2\Desafio2\fecha.cpp
+
+CMakeFiles/Desafio2.dir/fecha.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Desafio2.dir/fecha.cpp.i"
+	C:\Qt\Tools\mingw1310_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\melan\Desktop\QT\Desafio2\Desafio2\fecha.cpp > CMakeFiles\Desafio2.dir\fecha.cpp.i
+
+CMakeFiles/Desafio2.dir/fecha.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Desafio2.dir/fecha.cpp.s"
+	C:\Qt\Tools\mingw1310_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\melan\Desktop\QT\Desafio2\Desafio2\fecha.cpp -o CMakeFiles\Desafio2.dir\fecha.cpp.s
+
+CMakeFiles/Desafio2.dir/solicitud.cpp.obj: CMakeFiles/Desafio2.dir/flags.make
+CMakeFiles/Desafio2.dir/solicitud.cpp.obj: C:/Users/melan/Desktop/QT/Desafio2/Desafio2/solicitud.cpp
+CMakeFiles/Desafio2.dir/solicitud.cpp.obj: CMakeFiles/Desafio2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\melan\Desktop\QT\Desafio2\Desafio2\build\Desktop_Qt_6_11_2_MinGW_64_bit_Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Desafio2.dir/solicitud.cpp.obj"
+	C:\Qt\Tools\mingw1310_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Desafio2.dir/solicitud.cpp.obj -MF CMakeFiles\Desafio2.dir\solicitud.cpp.obj.d -o CMakeFiles\Desafio2.dir\solicitud.cpp.obj -c C:\Users\melan\Desktop\QT\Desafio2\Desafio2\solicitud.cpp
+
+CMakeFiles/Desafio2.dir/solicitud.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Desafio2.dir/solicitud.cpp.i"
+	C:\Qt\Tools\mingw1310_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\melan\Desktop\QT\Desafio2\Desafio2\solicitud.cpp > CMakeFiles\Desafio2.dir\solicitud.cpp.i
+
+CMakeFiles/Desafio2.dir/solicitud.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Desafio2.dir/solicitud.cpp.s"
+	C:\Qt\Tools\mingw1310_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\melan\Desktop\QT\Desafio2\Desafio2\solicitud.cpp -o CMakeFiles\Desafio2.dir\solicitud.cpp.s
+
+CMakeFiles/Desafio2.dir/cadena.cpp.obj: CMakeFiles/Desafio2.dir/flags.make
+CMakeFiles/Desafio2.dir/cadena.cpp.obj: C:/Users/melan/Desktop/QT/Desafio2/Desafio2/cadena.cpp
+CMakeFiles/Desafio2.dir/cadena.cpp.obj: CMakeFiles/Desafio2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\melan\Desktop\QT\Desafio2\Desafio2\build\Desktop_Qt_6_11_2_MinGW_64_bit_Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Desafio2.dir/cadena.cpp.obj"
+	C:\Qt\Tools\mingw1310_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Desafio2.dir/cadena.cpp.obj -MF CMakeFiles\Desafio2.dir\cadena.cpp.obj.d -o CMakeFiles\Desafio2.dir\cadena.cpp.obj -c C:\Users\melan\Desktop\QT\Desafio2\Desafio2\cadena.cpp
+
+CMakeFiles/Desafio2.dir/cadena.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Desafio2.dir/cadena.cpp.i"
+	C:\Qt\Tools\mingw1310_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\melan\Desktop\QT\Desafio2\Desafio2\cadena.cpp > CMakeFiles\Desafio2.dir\cadena.cpp.i
+
+CMakeFiles/Desafio2.dir/cadena.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Desafio2.dir/cadena.cpp.s"
+	C:\Qt\Tools\mingw1310_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\melan\Desktop\QT\Desafio2\Desafio2\cadena.cpp -o CMakeFiles\Desafio2.dir\cadena.cpp.s
+
 # Object files for target Desafio2
 Desafio2_OBJECTS = \
 "CMakeFiles/Desafio2.dir/main.cpp.obj" \
-"CMakeFiles/Desafio2.dir/medidor.cpp.obj"
+"CMakeFiles/Desafio2.dir/medidor.cpp.obj" \
+"CMakeFiles/Desafio2.dir/fecha.cpp.obj" \
+"CMakeFiles/Desafio2.dir/solicitud.cpp.obj" \
+"CMakeFiles/Desafio2.dir/cadena.cpp.obj"
 
 # External object files for target Desafio2
 Desafio2_EXTERNAL_OBJECTS =
 
 Desafio2.exe: CMakeFiles/Desafio2.dir/main.cpp.obj
 Desafio2.exe: CMakeFiles/Desafio2.dir/medidor.cpp.obj
+Desafio2.exe: CMakeFiles/Desafio2.dir/fecha.cpp.obj
+Desafio2.exe: CMakeFiles/Desafio2.dir/solicitud.cpp.obj
+Desafio2.exe: CMakeFiles/Desafio2.dir/cadena.cpp.obj
 Desafio2.exe: CMakeFiles/Desafio2.dir/build.make
 Desafio2.exe: CMakeFiles/Desafio2.dir/linkLibs.rsp
 Desafio2.exe: CMakeFiles/Desafio2.dir/objects1.rsp
 Desafio2.exe: CMakeFiles/Desafio2.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\melan\Desktop\QT\Desafio2\Desafio2\build\Desktop_Qt_6_11_2_MinGW_64_bit_Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable Desafio2.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\melan\Desktop\QT\Desafio2\Desafio2\build\Desktop_Qt_6_11_2_MinGW_64_bit_Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable Desafio2.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\Desafio2.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -10,6 +10,7 @@ add_executable(Desafio2 main.cpp
     lista.h
     fecha.h fecha.cpp
     solicitud.h solicitud.cpp
+    cadena.h cadena.cpp
 )
 
 include(GNUInstallDirs)
