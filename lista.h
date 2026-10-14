@@ -26,7 +26,7 @@ private:
 
         _datos = nuevosDatos;
         _capacidad = nuevaCapacidad;
-        Medidor::registrarMemoria(_capacidad * sizeof(T));
+        Medidor::registrarMemoria(calcularMemoria());
     }
 
 public:
@@ -35,7 +35,7 @@ public:
         _tamanio = 0;
         _capacidad = capacidadInicial > 0 ? capacidadInicial : 4;
         _datos = new T[_capacidad];
-        Medidor::registrarMemoria(_capacidad * sizeof(T));
+        Medidor::registrarMemoria(calcularMemoria());
     }
 
     // Destructor explicito
@@ -51,12 +51,12 @@ public:
         _tamanio = otra._tamanio;
         _capacidad = otra._capacidad;
         _datos = new T[_capacidad];
-        Medidor::registrarMemoria(_capacidad * sizeof(T));
 
         for (size_t i = 0; i < _tamanio; ++i) {
             Medidor::incrementarIteraciones();
             _datos[i] = otra._datos[i];
         }
+        Medidor::registrarMemoria(calcularMemoria());
     }
 
     // Sobrecarga del operador de asignación (=)
@@ -72,14 +72,26 @@ public:
         _tamanio = otra._tamanio;
         _capacidad = otra._capacidad;
         _datos = new T[_capacidad];
-        Medidor::registrarMemoria(_capacidad * sizeof(T));
 
         for (size_t i = 0; i < _tamanio; ++i) {
             Medidor::incrementarIteraciones();
             _datos[i] = otra._datos[i];
         }
+        Medidor::registrarMemoria(calcularMemoria());
 
         return *this;
+    }
+
+    // Sobrecarga del operador de igualdad (==)
+    bool operator==(const Lista<T>& otra) const {
+        if (_tamanio != otra._tamanio) return false;
+        for (size_t i = 0; i < _tamanio; ++i) {
+            Medidor::incrementarIteraciones();
+            if (!(_datos[i] == otra._datos[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     // Agregar un elemento al final
@@ -89,6 +101,46 @@ public:
             redimensionar(_capacidad * 2);
         }
         _datos[_tamanio++] = elemento;
+        Medidor::registrarMemoria(calcularMemoria());
+    }
+
+    // Agregar (insertar) un elemento en una posición específica
+    void agregar(size_t indice, const T& elemento) {
+        if (indice > _tamanio) return;
+        Medidor::incrementarIteraciones();
+        if (_tamanio >= _capacidad) {
+            redimensionar(_capacidad * 2);
+        }
+        for (size_t i = _tamanio; i > indice; --i) {
+            Medidor::incrementarIteraciones();
+            _datos[i] = _datos[i - 1];
+        }
+        _datos[indice] = elemento;
+        _tamanio++;
+        Medidor::registrarMemoria(calcularMemoria());
+    }
+
+    // Buscar un elemento (retorna el índice o -1 si no se encuentra)
+    int buscar(const T& elemento) const {
+        for (size_t i = 0; i < _tamanio; ++i) {
+            Medidor::incrementarIteraciones();
+            if (_datos[i] == elemento) {
+                return static_cast<int>(i);
+            }
+        }
+        return -1;
+    }
+
+    // Quitar un elemento por su índice
+    void quitar(size_t indice) {
+        if (indice >= _tamanio) return;
+        Medidor::incrementarIteraciones();
+        for (size_t i = indice; i < _tamanio - 1; ++i) {
+            Medidor::incrementarIteraciones();
+            _datos[i] = _datos[i + 1];
+        }
+        _tamanio--;
+        Medidor::registrarMemoria(calcularMemoria());
     }
 
     // Sobrecarga de operadores []
@@ -100,7 +152,7 @@ public:
         return _datos[indice];
     }
 
-    // Metodos de consulta
+    // Métodos de consulta
     size_t getTamanio() const {
         return _tamanio;
     }
@@ -112,6 +164,11 @@ public:
     bool estaVacia() const {
         return _tamanio == 0;
     }
+
+    // Método para calcular la memoria total ocupada por la lista
+    long calcularMemoria() const {
+        return static_cast<long>(sizeof(Lista<T>) + (_capacidad * sizeof(T)));
+    }
 };
 
-#endif
+#endif // LISTA_H

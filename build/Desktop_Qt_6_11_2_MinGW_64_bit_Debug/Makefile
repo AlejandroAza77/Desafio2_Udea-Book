@@ -173,6 +173,54 @@ Desafio2/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Desafio2.dir\build.make CMakeFiles/Desafio2.dir/build
 .PHONY : Desafio2/fast
 
+cadena.obj: cadena.cpp.obj
+.PHONY : cadena.obj
+
+# target to build an object file
+cadena.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Desafio2.dir\build.make CMakeFiles/Desafio2.dir/cadena.cpp.obj
+.PHONY : cadena.cpp.obj
+
+cadena.i: cadena.cpp.i
+.PHONY : cadena.i
+
+# target to preprocess a source file
+cadena.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Desafio2.dir\build.make CMakeFiles/Desafio2.dir/cadena.cpp.i
+.PHONY : cadena.cpp.i
+
+cadena.s: cadena.cpp.s
+.PHONY : cadena.s
+
+# target to generate assembly for a file
+cadena.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Desafio2.dir\build.make CMakeFiles/Desafio2.dir/cadena.cpp.s
+.PHONY : cadena.cpp.s
+
+fecha.obj: fecha.cpp.obj
+.PHONY : fecha.obj
+
+# target to build an object file
+fecha.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Desafio2.dir\build.make CMakeFiles/Desafio2.dir/fecha.cpp.obj
+.PHONY : fecha.cpp.obj
+
+fecha.i: fecha.cpp.i
+.PHONY : fecha.i
+
+# target to preprocess a source file
+fecha.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Desafio2.dir\build.make CMakeFiles/Desafio2.dir/fecha.cpp.i
+.PHONY : fecha.cpp.i
+
+fecha.s: fecha.cpp.s
+.PHONY : fecha.s
+
+# target to generate assembly for a file
+fecha.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Desafio2.dir\build.make CMakeFiles/Desafio2.dir/fecha.cpp.s
+.PHONY : fecha.cpp.s
+
 main.obj: main.cpp.obj
 .PHONY : main.obj
 
@@ -221,6 +269,30 @@ medidor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Desafio2.dir\build.make CMakeFiles/Desafio2.dir/medidor.cpp.s
 .PHONY : medidor.cpp.s
 
+solicitud.obj: solicitud.cpp.obj
+.PHONY : solicitud.obj
+
+# target to build an object file
+solicitud.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Desafio2.dir\build.make CMakeFiles/Desafio2.dir/solicitud.cpp.obj
+.PHONY : solicitud.cpp.obj
+
+solicitud.i: solicitud.cpp.i
+.PHONY : solicitud.i
+
+# target to preprocess a source file
+solicitud.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Desafio2.dir\build.make CMakeFiles/Desafio2.dir/solicitud.cpp.i
+.PHONY : solicitud.cpp.i
+
+solicitud.s: solicitud.cpp.s
+.PHONY : solicitud.s
+
+# target to generate assembly for a file
+solicitud.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Desafio2.dir\build.make CMakeFiles/Desafio2.dir/solicitud.cpp.s
+.PHONY : solicitud.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -234,12 +306,21 @@ help:
 	@echo ... list_install_components
 	@echo ... rebuild_cache
 	@echo ... Desafio2
+	@echo ... cadena.obj
+	@echo ... cadena.i
+	@echo ... cadena.s
+	@echo ... fecha.obj
+	@echo ... fecha.i
+	@echo ... fecha.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
 	@echo ... medidor.obj
 	@echo ... medidor.i
 	@echo ... medidor.s
+	@echo ... solicitud.obj
+	@echo ... solicitud.i
+	@echo ... solicitud.s
 .PHONY : help
 
 
