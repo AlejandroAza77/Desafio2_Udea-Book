@@ -15,6 +15,7 @@ add_executable(Desafio2 main.cpp
     album.h album.cpp
     mensaje.h mensaje.cpp
     usuario.h usuario.cpp
+    matrizamistad.h matrizamistad.cpp
 
 )
 

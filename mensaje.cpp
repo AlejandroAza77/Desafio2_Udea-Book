@@ -1,18 +1,21 @@
 #include "mensaje.h"
 
-// Constructor por defecto
+// Limite de caracteres compartido por todos los mensajes
+int Mensaje::maxCaracteres = 512;
+
 Mensaje::Mensaje() {
     idEmisor = -1;
     idReceptor = -1;
+    leido = false;
 }
 
-// Constructor con parametros
 Mensaje::Mensaje(int emisor, int receptor, const Cadena& texto, const Fecha& fecha) {
     idEmisor = -1;
     idReceptor = -1;
+    leido = false;
     setIdEmisor(emisor);
     setIdReceptor(receptor);
-    contenido = texto;
+    setContenido(texto);
     fechaEnvio = fecha;
 }
 
@@ -22,6 +25,7 @@ Mensaje::Mensaje(const Mensaje& otro) {
     idReceptor = otro.idReceptor;
     contenido = otro.contenido;
     fechaEnvio = otro.fechaEnvio;
+    leido = otro.leido;
 }
 
 // Destructor
@@ -33,8 +37,9 @@ int Mensaje::getIdEmisor() const { return idEmisor; }
 int Mensaje::getIdReceptor() const { return idReceptor; }
 const Cadena& Mensaje::getContenido() const { return contenido; }
 const Fecha& Mensaje::getFechaEnvio() const { return fechaEnvio; }
+bool Mensaje::getLeido() const { return leido; }
 
-// Setters con validacion basica de IDs
+// Setters
 void Mensaje::setIdEmisor(int nuevoEmisor) {
     if (nuevoEmisor >= 0) {
         idEmisor = nuevoEmisor;
@@ -47,7 +52,10 @@ void Mensaje::setIdReceptor(int nuevoReceptor) {
     }
 }
 
+// El texto no puede estar vacio ni tener mas de maxCaracteres caracteres
 void Mensaje::setContenido(const Cadena& nuevoContenido) {
+    if (nuevoContenido.estaVacia()) return;
+    if (nuevoContenido.getLongitud() > static_cast<size_t>(maxCaracteres)) return;
     contenido = nuevoContenido;
 }
 
@@ -55,26 +63,44 @@ void Mensaje::setFechaEnvio(const Fecha& nuevaFecha) {
     fechaEnvio = nuevaFecha;
 }
 
-// Sobrecarga del operador de asignacion
+void Mensaje::setLeido(bool nuevoEstado) {
+    leido = nuevoEstado;
+}
+
+void Mensaje::marcarLeido() {
+    leido = true;
+}
+
+// Limite estatico
+int Mensaje::getMaxCaracteres() { return maxCaracteres; }
+
+void Mensaje::setMaxCaracteres(int maximo) {
+    if (maximo > 0) {
+        maxCaracteres = maximo;
+    }
+}
+
+// Operadores
 Mensaje& Mensaje::operator=(const Mensaje& otro) {
     if (this != &otro) {
         idEmisor = otro.idEmisor;
         idReceptor = otro.idReceptor;
         contenido = otro.contenido;
         fechaEnvio = otro.fechaEnvio;
+        leido = otro.leido;
     }
     return *this;
 }
 
-// Sobrecarga del operador de igualdad
 bool Mensaje::operator==(const Mensaje& otro) const {
     return idEmisor == otro.idEmisor &&
            idReceptor == otro.idReceptor &&
            contenido == otro.contenido &&
-           fechaEnvio == otro.fechaEnvio;
+           fechaEnvio == otro.fechaEnvio &&
+           leido == otro.leido;
 }
 
-// Calculo de la memoria ocupada por el mensaje
+// Memoria: parte fija del objeto + el texto (sin su parte fija, ya contada)
 long Mensaje::calcularMemoria() const {
     return static_cast<long>(sizeof(Mensaje)) +
            (contenido.calcularMemoria() - static_cast<long>(sizeof(Cadena)));
