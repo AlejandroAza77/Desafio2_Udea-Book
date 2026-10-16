@@ -1,40 +1,52 @@
 #ifndef MENSAJE_H
 #define MENSAJE_H
 
-#include "Fecha.h"
 #include "cadena.h"
+#include "fecha.h"
 
 class Mensaje {
 private:
-    int idEmisor;     // ID del usuario que envia el mensaje
-    int idReceptor;   // ID del usuario que recibe el mensaje
-    Cadena contenido; // Texto del mensaje
-    Fecha fechaEnvio; // Fecha y hora de envío
+    int idEmisor;
+    int idReceptor;
+    Cadena contenido;    // texto del mensaje
+    Fecha fechaEnvio;
+    bool leido;
+
+    static int maxCaracteres;   // limite de caracteres del texto (512)
 
 public:
-    // Constructores y destructor
+    // --- Constructores y destructor ---
     Mensaje();
     Mensaje(int emisor, int receptor, const Cadena& texto, const Fecha& fecha);
     Mensaje(const Mensaje& otro);
     ~Mensaje();
 
-    // Getters
+    // --- Getters ---
     int getIdEmisor() const;
     int getIdReceptor() const;
     const Cadena& getContenido() const;
     const Fecha& getFechaEnvio() const;
+    bool getLeido() const;
 
-    // Setters
+    // --- Setters ---
     void setIdEmisor(int nuevoEmisor);
     void setIdReceptor(int nuevoReceptor);
-    void setContenido(const Cadena& nuevoContenido);
+    void setContenido(const Cadena& nuevoContenido);   // rechaza vacio o demasiado largo
     void setFechaEnvio(const Fecha& nuevaFecha);
+    void setLeido(bool nuevoEstado);
 
-    // Sobrecarga de operadores
+    // Marca el mensaje como leido
+    void marcarLeido();
+
+    // imite de caracteres (miembro estatico)
+    static int getMaxCaracteres();
+    static void setMaxCaracteres(int maximo);
+
+    //
     Mensaje& operator=(const Mensaje& otro);
     bool operator==(const Mensaje& otro) const;
 
-    // Metodo para medir el consumo de memoria en bytes
+    // Memoria total del objeto (parte fija + texto), en bytes
     long calcularMemoria() const;
 };
 

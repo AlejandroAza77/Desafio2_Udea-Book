@@ -1,14 +1,12 @@
 #include "Medidor.h"
 #include <iostream>
 
-// Inicializacion de los miembros estaticos
 long long Medidor::_iteraciones = 0;
 size_t Medidor::_memoriaLocales = 0;
 char Medidor::_nombres[Medidor::MAX_FUNCIONES][Medidor::LARGO_NOMBRE];
 int Medidor::_usos[Medidor::MAX_FUNCIONES];
 int Medidor::_cantidadFunciones = 0;
 
-// Constructores y destructor privados (nunca se usan)
 Medidor::Medidor() {}
 Medidor::Medidor(const Medidor& otro) { (void)otro; }
 Medidor::~Medidor() {}
@@ -88,9 +86,7 @@ void Medidor::mostrarReporte(long long memoriaEstructuras) {
     }
 }
 
-// ---------------------------------------------------------------------------
 // Consultas
-// ---------------------------------------------------------------------------
 long long Medidor::getIteraciones() { return _iteraciones; }
 size_t Medidor::getMemoriaLocales() { return _memoriaLocales; }
 int Medidor::getCantidadFuncionesExternas() { return _cantidadFunciones; }

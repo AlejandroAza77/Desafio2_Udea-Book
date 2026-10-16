@@ -6,7 +6,6 @@ Solicitud::Solicitud() {
     idReceptor = -1;
 }
 
-// Constructor con datos. Los numeros pasan por los setters para validarlos.
 Solicitud::Solicitud(int emisor, int receptor, const Fecha& fechaEnvio) {
     idEmisor = -1;
     idReceptor = -1;
