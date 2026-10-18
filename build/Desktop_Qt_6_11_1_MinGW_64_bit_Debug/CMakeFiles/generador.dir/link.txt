@@ -1,0 +1,3 @@
+C:\Users\ALEJANDRO\Desktop\QTcreator\Tools\CMake_64\bin\cmake.exe -E rm -f CMakeFiles\generador.dir/objects.a
+C:\Users\ALEJANDRO\Desktop\QTcreator\Tools\mingw1310_64\bin\ar.exe qc CMakeFiles\generador.dir/objects.a @CMakeFiles\generador.dir\objects1.rsp
+C:\Users\ALEJANDRO\Desktop\QTcreator\Tools\mingw1310_64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\generador.dir/objects.a -Wl,--no-whole-archive -o generador\generador.exe -Wl,--out-implib,libgenerador.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\generador.dir\linkLibs.rsp

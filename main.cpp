@@ -1,101 +1,103 @@
 #include <iostream>
+#include "cadena.h"
 #include "udeabook.h"
-#include "medidor.h"
+
+
+static void mostrarMenuSesion(const char* nombre, bool fotosDisponibles) {
+    std::cout << "\n==================================================\n";
+    std::cout << "  SESION ACTIVA: " << nombre << "\n";
+    std::cout << "==================================================\n";
+    std::cout << "  1. Administrar amistades\n";
+    std::cout << "  2. Visitar perfil de un amigo\n";
+    std::cout << "  3. Ver sugerencias de amistad\n";
+    std::cout << "  4. Administrar mensajes\n";
+    if (fotosDisponibles) {
+        std::cout << "  5. Actualizar fotos de amigos (solo una vez)\n";
+    }
+    std::cout << "  0. Cerrar sesion\n";
+}
 
 int main() {
-    std::cout << "        PROYECTO DESAFIO 2: UDEABOOK             \n";
+    std::cout << "==================================================\n";
+    std::cout << "        PROYECTO DESAFIO 2: UDE@BOOK\n";
+    std::cout << "==================================================\n";
 
-    // Instanciacion del controlador principal (sub-ruta vacia, directorio actual ".", umbral 20)
-    UdeABook app("", ".", 20);
 
-    // Carga inicial de datos desde archivos de texto
-    if (!app.iniciarSistema()) {
+    UdeABook app("", "datos", 20);
+    bool cargado = app.iniciarSistema();
+    if (!cargado) {
+        std::cout << "Se intentara cargar desde la carpeta actual...\n";
+        app = UdeABook("", ".", 20);
+        cargado = app.iniciarSistema();
+    }
+    if (!cargado) {
         std::cout << "Error al iniciar el sistema UdeABook.\n";
         return 1;
     }
 
     bool salirSistema = false;
     while (!salirSistema) {
-        std::cout << "            AUTENTICACION UDEABOOK              \n";
-        std::cout << "Ingrese su nombre de usuario (o 'SALIR' para cerrar): ";
+        char nombre[128];
+        char clave[128];
 
-        char nombreInput[128];
-        std::cin >> nombreInput;
+        std::cout << "\n================ INGRESO A UDE@BOOK ================\n";
+        std::cout << "Nombre de usuario (o SALIR para cerrar): ";
+        if (!UdeABook::leerLinea(nombre, 128)) break;
 
-        Cadena usuarioActual(nombreInput);
-        if (usuarioActual == Cadena("SALIR") || usuarioActual == Cadena("salir")) {
+        Cadena usuarioIngresado(nombre);
+        if (usuarioIngresado == Cadena("SALIR") || usuarioIngresado == Cadena("salir")) {
             break;
         }
+        std::cout << "Contrasena: ";
+        if (!UdeABook::leerLinea(clave, 128)) break;
 
-        // Busqueda del usuario autenticado
-        int idUsuario = app.buscarUsuarioPorNombre(usuarioActual);
+        // II. Ingreso: valida las credenciales y muestra 3 fotos de amigos
+        int idUsuario = app.iniciarSesion(usuarioIngresado, Cadena(clave));
         if (idUsuario == -1) {
-            std::cout << "  [!] Usuario no encontrado. Intente nuevamente.\n";
             continue;
         }
 
-        // Menú de Sesión Activa
         bool sesionActiva = true;
         while (sesionActiva) {
-            std::cout << "  SESION ACTIVA: " << nombreInput << "\n";
-            std::cout << "  1. Menu Principal de Servicios\n";
-            std::cout << "  2. Rotar muestra de fotos de amigos\n";
-            std::cout << "  3. Cerrar Sesion\n";
-            std::cout << "Seleccione una opcion: ";
+            mostrarMenuSesion(nombre, app.puedeActualizarFotos());
 
-            char op;
-            std::cin >> op;
+            int opcion = 0;
+            if (!UdeABook::leerEntero("Seleccione una opcion: ", 0, 5, opcion)) {
+                salirSistema = true;        // se acabo la entrada
+                break;
+            }
 
-            if (op == '1') {
-                bool enSubmenu = true;
-                while (enSubmenu) {
-                    std::cout << "\n MENU PRINCIPAL DE SERVICIOS UDEABOOK \n";
-                    std::cout << "1. Administrar Amistades (Solicitudes/Amigos)\n";
-                    std::cout << "2. Visitar Perfil de Amigos (Albumes y Fotos)\n";
-                    std::cout << "3. Ver K-Sugerencias de Amistad\n";
-                    std::cout << "4. Gestion de Mensajeria Directa\n";
-                    std::cout << "5. Reporte de Consumo de Recursos (Medidor)\n";
-                    std::cout << "6. Volver al menuu de usuario\n";
-                    std::cout << "Seleccione una opcion: ";
-
-                    int opServicio;
-                    std::cin >> opServicio;
-
-                    switch (opServicio) {
-                    case 1:
-                        app.administrarAmistades(idUsuario);
-                        break;
-                    case 2:
-                        app.visitarPerfil(idUsuario);
-                        break;
-                    case 3:
-                        app.verSugerencias(idUsuario);
-                        break;
-                    case 4:
-                        app.administrarMensajes(idUsuario);
-                        break;
-                    case 5:
-                        app.mostrarReporteRecursos();
-                        break;
-                    case 6:
-                        enSubmenu = false;
-                        break;
-                    default:
-                        std::cout << "  [!] Opcion no valida.\n";
-                    }
+            switch (opcion) {
+            case 1:
+                app.administrarAmistades(idUsuario);
+                break;
+            case 2:
+                app.visitarPerfil(idUsuario);
+                break;
+            case 3:
+                app.verSugerencias(idUsuario);
+                break;
+            case 4:
+                app.administrarMensajes(idUsuario);
+                break;
+            case 5:
+                if (app.puedeActualizarFotos()) {
+                    app.actualizarFotosAmigos(idUsuario);
+                } else {
+                    std::cout << "  [!] Opcion no valida.\n";
                 }
-            } else if (op == '2') {
-                std::cout << "  [i] Rotando fotos ponderadas de amigos...\n";
-            } else if (op == '3') {
+                break;
+            case 0:
                 sesionActiva = false;
-                std::cout << "  [i] Sesion de " << nombreInput << " cerrada.\n";
-            } else {
-                std::cout << "  [!] Opción invalida.\n";
+                std::cout << "  Sesion de " << nombre << " cerrada.\n";
+                break;
             }
         }
+
+        app.guardarCambiosPendientes();
     }
 
-    std::cout << "      GRACIAS POR USAR UDEABOOK. ¡HASTA PRONTO!    \n";
-
+    app.guardarCambiosPendientes();
+    std::cout << "\n   GRACIAS POR USAR UDE@BOOK. HASTA PRONTO!\n";
     return 0;
 }

@@ -1,0 +1,20 @@
+CMakeFiles/Desafio2.dir/fecha.cpp.obj: \
+ C:\Users\ALEJANDRO\Desktop\Un2doSemestre\Informatica2\Desafio2\fecha.cpp \
+ C:\Users\ALEJANDRO\Desktop\Un2doSemestre\Informatica2\Desafio2\Fecha.h \
+ C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/ctime \
+ C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
+ C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/os_defines.h \
+ C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/cpu_defines.h \
+ C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/pstl/pstl_config.h \
+ C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/x86_64-w64-mingw32/include/time.h \
+ C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/x86_64-w64-mingw32/include/crtdefs.h \
+ C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/x86_64-w64-mingw32/include/corecrt.h \
+ C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/x86_64-w64-mingw32/include/_mingw.h \
+ C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/x86_64-w64-mingw32/include/_mingw_mac.h \
+ C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/x86_64-w64-mingw32/include/_mingw_secapi.h \
+ C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/x86_64-w64-mingw32/include/vadefs.h \
+ C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h \
+ C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/x86_64-w64-mingw32/include/sys/timeb.h \
+ C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/x86_64-w64-mingw32/include/sec_api/sys/timeb_s.h \
+ C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/x86_64-w64-mingw32/include/_timeval.h \
+ C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/x86_64-w64-mingw32/include/pthread_time.h
