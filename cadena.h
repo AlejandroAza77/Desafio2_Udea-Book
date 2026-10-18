@@ -13,6 +13,7 @@ public:
 
     Cadena();                       // texto vacio
     Cadena(const char* str);        // a partir de un texto de C
+    Cadena(const char* str, size_t longitud);   // longitud ya conocida: una sola pasada
     Cadena(const Cadena& otra);     // constructor de copia
     ~Cadena();
 
@@ -20,6 +21,7 @@ public:
     const char* c_str() const;
 
     void setTexto(const char* nuevoTexto);
+    void setTexto(const char* nuevoTexto, size_t longitud);   // longitud ya conocida
 
     // Consulta
     bool estaVacia() const;

@@ -59,6 +59,12 @@ void Mensaje::setContenido(const Cadena& nuevoContenido) {
     contenido = nuevoContenido;
 }
 
+void Mensaje::setContenido(const char* texto, size_t largo) {
+    if (largo == 0) return;
+    if (largo > static_cast<size_t>(maxCaracteres)) return;
+    contenido.setTexto(texto, largo);
+}
+
 void Mensaje::setFechaEnvio(const Fecha& nuevaFecha) {
     fechaEnvio = nuevaFecha;
 }

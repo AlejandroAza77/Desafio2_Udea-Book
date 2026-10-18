@@ -27,11 +27,17 @@ const Lista<Foto>& Album::getFotos() const    { return fotos; }
 
 void Album::setNombre(const Cadena& nuevoNombre)   { nombre = nuevoNombre; }
 void Album::setRuta(const Cadena& nuevaRuta)       { ruta = nuevaRuta; }
+void Album::setNombre(const char* nuevoNombre, size_t largo) { nombre.setTexto(nuevoNombre, largo); }
+void Album::setRuta(const char* nuevaRuta, size_t largo)     { ruta.setTexto(nuevaRuta, largo); }
 void Album::setPrivacidad(Privacidad nuevaPrivacidad) { privacidad = nuevaPrivacidad; }
 void Album::setFotos(const Lista<Foto>& nuevasFotos)  { fotos = nuevasFotos; }
 
 void Album::agregarFoto(const Foto& foto) {
     fotos.agregar(foto);
+}
+
+Foto& Album::agregarFotoVacia() {
+    return fotos.agregarVacio();
 }
 
 Foto& Album::obtenerFoto(int posicion) {

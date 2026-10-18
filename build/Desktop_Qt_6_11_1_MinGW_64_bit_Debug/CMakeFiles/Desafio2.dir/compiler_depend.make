@@ -787,7 +787,6 @@ CMakeFiles/Desafio2.dir/main.cpp.obj: C:/Users/ALEJANDRO/Desktop/Un2doSemestre/I
   C:/Users/ALEJANDRO/Desktop/Un2doSemestre/Informatica2/Desafio2/fecha.h \
   C:/Users/ALEJANDRO/Desktop/Un2doSemestre/Informatica2/Desafio2/lista.h \
   C:/Users/ALEJANDRO/Desktop/Un2doSemestre/Informatica2/Desafio2/matrizamistad.h \
-  C:/Users/ALEJANDRO/Desktop/Un2doSemestre/Informatica2/Desafio2/medidor.h \
   C:/Users/ALEJANDRO/Desktop/Un2doSemestre/Informatica2/Desafio2/mensaje.h \
   C:/Users/ALEJANDRO/Desktop/Un2doSemestre/Informatica2/Desafio2/solicitud.h \
   C:/Users/ALEJANDRO/Desktop/Un2doSemestre/Informatica2/Desafio2/udeabook.h \
@@ -1174,6 +1173,7 @@ CMakeFiles/Desafio2.dir/udeabook.cpp.obj: C:/Users/ALEJANDRO/Desktop/Un2doSemest
   C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cstddef \
   C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cstdio \
   C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cstdlib \
+  C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/ctime \
   C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cwchar \
   C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cwctype \
   C:/Users/ALEJANDRO/Desktop/QTcreator/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/debug/assertions.h \

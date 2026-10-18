@@ -28,7 +28,10 @@ private:
     // Auxiliares
     void rutaDe(const char* nombreArchivo, char* destino, int max) const;
     bool abrirParaAgregar(const char* nombreArchivo, std::fstream& archivo) const;
+    // Arma la ruta en un arreglo de char y devuelve su largo (sin copias intermedias)
+    int armarRutaFoto(char* destino, int max, const Cadena& usuario, const Cadena& album, const char* foto) const;
     Cadena construirRutaFoto(const Cadena& usuario, const Cadena& album, const Cadena& foto) const;
+    int armarRutaAlbum(char* destino, int max, const Cadena& usuario, const Cadena& album) const;
     Cadena construirRutaAlbum(const Cadena& usuario, const Cadena& album) const;
 
 public:
@@ -67,7 +70,7 @@ public:
     bool debeGuardarse() const;      // true si los cambios acumulados llegaron al umbral
     bool guardarPendientes(const Lista<Usuario>& usuarios, const Lista<Mensaje>& mensajes);
 
-    // --- Operadores sobrecargados ---
+    //  Operadores sobrecargados
     Almacenamiento& operator=(const Almacenamiento& otro);
     bool operator==(const Almacenamiento& otro) const;
 

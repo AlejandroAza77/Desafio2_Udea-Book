@@ -85,6 +85,10 @@ void Usuario::agregarAlbum(const Album& album) {
     albumes.agregar(album);
 }
 
+Album& Usuario::agregarAlbumVacio() {
+    return albumes.agregarVacio();
+}
+
 Album& Usuario::obtenerAlbum(int posicion) {
     if (posicion < 0 || posicion >= getCantidadAlbumes()) {
         static Album albumVacio;       // se devuelve si la posicion no existe

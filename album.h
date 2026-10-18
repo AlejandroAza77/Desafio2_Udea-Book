@@ -32,12 +32,15 @@ public:
     const Lista<Foto>& getFotos() const;
 
     void setNombre(const Cadena& nuevoNombre);
+    void setNombre(const char* nuevoNombre, size_t largo);   // copia el texto una sola vez
     void setRuta(const Cadena& nuevaRuta);
+    void setRuta(const char* nuevaRuta, size_t largo);       // copia el texto una sola vez
     void setPrivacidad(Privacidad nuevaPrivacidad);
     void setFotos(const Lista<Foto>& nuevasFotos);
 
     // Fotos
     void agregarFoto(const Foto& foto);
+    Foto& agregarFotoVacia();            // agrega una foto vacia y devuelve su referencia
 
     Foto& obtenerFoto(int posicion);
     int getCantidadFotos() const;

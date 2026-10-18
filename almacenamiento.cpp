@@ -26,24 +26,26 @@ static int aEntero(const char* t, bool& ok) {
 }
 
 
-static const char* tomarCampo(const char* pos, char* destino, int max) {
+static const char* tomarCampo(const char* pos, char* destino, int max, int* largo = nullptr) {
     int i = 0;
     while (*pos != '\0' && *pos != '|') {
         if (i < max - 1) destino[i++] = *pos;
         pos++;
     }
     destino[i] = '\0';
+    if (largo != nullptr) *largo = i;
     if (*pos == '|') return pos + 1;
     return nullptr;
 }
 
 // Copia todo lo que queda de la linea (el texto del mensaje puede contener '|')
-static void tomarResto(const char* pos, char* destino, int max) {
+static int tomarResto(const char* pos, char* destino, int max) {
     int i = 0;
     while (*pos != '\0' && i < max - 1) {
         destino[i++] = *pos++;
     }
     destino[i] = '\0';
+    return i;
 }
 
 // Lee "dd/mm/aaaa" o "dd/mm/aaaa hh:mm". Devuelve false si no es una fecha valida.
@@ -251,40 +253,50 @@ bool Almacenamiento::abrirParaAgregar(const char* nombreArchivo, std::fstream& a
 
 // /users/<sub-ruta>/<usuario>/albums/<album>/<foto>.png
 // Si album esta vacio: /users/<sub-ruta>/<usuario>/albums/<foto>.png
+int Almacenamiento::armarRutaFoto(char* destino, int max, const Cadena& usuario, const Cadena& album, const char* foto) const {
+    int pos = 0;
+    destino[0] = '\0';
+    agregarTexto(destino, pos, max, "/users/");
+    if (!subRutaFija.estaVacia()) {
+        agregarTexto(destino, pos, max, subRutaFija.c_str());
+        agregarTexto(destino, pos, max, "/");
+    }
+    agregarTexto(destino, pos, max, usuario.c_str());
+    agregarTexto(destino, pos, max, "/albums/");
+    if (!album.estaVacia()) {
+        agregarTexto(destino, pos, max, album.c_str());
+        agregarTexto(destino, pos, max, "/");
+    }
+    agregarTexto(destino, pos, max, foto);
+    agregarTexto(destino, pos, max, ".png");
+    return pos;
+}
+
 Cadena Almacenamiento::construirRutaFoto(const Cadena& usuario, const Cadena& album, const Cadena& foto) const {
     char ruta[MAX_RUTA];
-    int pos = 0;
-    ruta[0] = '\0';
-    agregarTexto(ruta, pos, MAX_RUTA, "/users/");
-    if (!subRutaFija.estaVacia()) {
-        agregarTexto(ruta, pos, MAX_RUTA, subRutaFija.c_str());
-        agregarTexto(ruta, pos, MAX_RUTA, "/");
-    }
-    agregarTexto(ruta, pos, MAX_RUTA, usuario.c_str());
-    agregarTexto(ruta, pos, MAX_RUTA, "/albums/");
-    if (!album.estaVacia()) {
-        agregarTexto(ruta, pos, MAX_RUTA, album.c_str());
-        agregarTexto(ruta, pos, MAX_RUTA, "/");
-    }
-    agregarTexto(ruta, pos, MAX_RUTA, foto.c_str());
-    agregarTexto(ruta, pos, MAX_RUTA, ".png");
-    return Cadena(ruta);
+    int largo = armarRutaFoto(ruta, MAX_RUTA, usuario, album, foto.c_str());
+    return Cadena(ruta, static_cast<size_t>(largo));
 }
 
 // /users/<sub-ruta>/<usuario>/albums/<album>
+int Almacenamiento::armarRutaAlbum(char* destino, int max, const Cadena& usuario, const Cadena& album) const {
+    int pos = 0;
+    destino[0] = '\0';
+    agregarTexto(destino, pos, max, "/users/");
+    if (!subRutaFija.estaVacia()) {
+        agregarTexto(destino, pos, max, subRutaFija.c_str());
+        agregarTexto(destino, pos, max, "/");
+    }
+    agregarTexto(destino, pos, max, usuario.c_str());
+    agregarTexto(destino, pos, max, "/albums/");
+    agregarTexto(destino, pos, max, album.c_str());
+    return pos;
+}
+
 Cadena Almacenamiento::construirRutaAlbum(const Cadena& usuario, const Cadena& album) const {
     char ruta[MAX_RUTA];
-    int pos = 0;
-    ruta[0] = '\0';
-    agregarTexto(ruta, pos, MAX_RUTA, "/users/");
-    if (!subRutaFija.estaVacia()) {
-        agregarTexto(ruta, pos, MAX_RUTA, subRutaFija.c_str());
-        agregarTexto(ruta, pos, MAX_RUTA, "/");
-    }
-    agregarTexto(ruta, pos, MAX_RUTA, usuario.c_str());
-    agregarTexto(ruta, pos, MAX_RUTA, "/albums/");
-    agregarTexto(ruta, pos, MAX_RUTA, album.c_str());
-    return Cadena(ruta);
+    int largo = armarRutaAlbum(ruta, MAX_RUTA, usuario, album);
+    return Cadena(ruta, static_cast<size_t>(largo));
 }
 
 // ---------------------------------------------------------------------------
@@ -308,29 +320,37 @@ bool Almacenamiento::cargarUsuarios(Lista<Usuario>& usuarios) {
     int total = aEntero(linea, ok);
     if (!ok) { errorArchivo("usuarios.txt", 1, "cantidad de registros invalida"); return false; }
 
+    usuarios.reservar(static_cast<size_t>(total));      // una sola reserva: el total viene en el encabezado
     for (int n = 0; n < total; n++) {
         Medidor::incrementarIteraciones();
         if (!leerLinea(f, linea)) { errorArchivo("usuarios.txt", n + 2, "faltan registros"); return false; }
         char nombre[MAX_CORTO], clave[MAX_CORTO], nac[MAX_CORTO], correo[MAX_CORTO], ciudad[MAX_CORTO], pais[MAX_CORTO], insc[MAX_CORTO];
-        const char* p = tomarCampo(linea, nombre, MAX_CORTO);
-        if (p) p = tomarCampo(p, clave, MAX_CORTO);
+        int lNombre = 0, lClave = 0, lCorreo = 0, lCiudad = 0, lPais = 0;
+        const char* p = tomarCampo(linea, nombre, MAX_CORTO, &lNombre);
+        if (p) p = tomarCampo(p, clave, MAX_CORTO, &lClave);
         if (p) p = tomarCampo(p, nac, MAX_CORTO);
-        if (p) p = tomarCampo(p, correo, MAX_CORTO);
-        if (p) p = tomarCampo(p, ciudad, MAX_CORTO);
-        if (p) p = tomarCampo(p, pais, MAX_CORTO);
+        if (p) p = tomarCampo(p, correo, MAX_CORTO, &lCorreo);
+        if (p) p = tomarCampo(p, ciudad, MAX_CORTO, &lCiudad);
+        if (p) p = tomarCampo(p, pais, MAX_CORTO, &lPais);
         if (p) tomarCampo(p, insc, MAX_CORTO);
         Fecha fNac, fInsc;
         if (!p || nombre[0] == '\0' || !leerFecha(nac, fNac) || !leerFecha(insc, fInsc)) {
             errorArchivo("usuarios.txt", n + 2, "registro mal formado");
             return false;
         }
-        Usuario u(n, Cadena(nombre), Cadena(correo), fNac);
-        u.setContrasena(Cadena(clave));
-        u.setCiudad(Cadena(ciudad));
-        u.setPais(Cadena(pais));
+        // El usuario se llena directamente en su lugar de la lista (sin temporal ni copia final)
+        Usuario& u = usuarios.agregarVacio();
+        u.setId(n);
+        u.setNombre(Cadena(nombre, static_cast<size_t>(lNombre)));
+        u.setCorreo(Cadena(correo, static_cast<size_t>(lCorreo)));
+        u.setFechaNacimiento(fNac);
+        u.setContrasena(Cadena(clave, static_cast<size_t>(lClave)));
+        u.setCiudad(Cadena(ciudad, static_cast<size_t>(lCiudad)));
+        u.setPais(Cadena(pais, static_cast<size_t>(lPais)));
         u.setFechaInscripcion(fInsc);
-        u.setRutaFotoPerfil(construirRutaFoto(Cadena(nombre), Cadena(), Cadena("profile")));
-        usuarios.agregar(u);
+        char rutaFoto[MAX_RUTA];
+        int lRuta = armarRutaFoto(rutaFoto, MAX_RUTA, u.getNombre(), Cadena(), "profile");
+        u.setRutaFotoPerfil(Cadena(rutaFoto, static_cast<size_t>(lRuta)));
     }
     std::cout << "  usuarios.txt: " << total << " registros" << std::endl;
     return true;
@@ -423,6 +443,7 @@ bool Almacenamiento::cargarMensajes(Lista<Usuario>& usuarios, Lista<Mensaje>& me
     if (!ok) { errorArchivo("mensajes.txt", 1, "cantidad de registros invalida"); return false; }
 
     int n_usuarios = static_cast<int>(usuarios.getTamanio());
+    mensajes.reservar(static_cast<size_t>(total));      // una sola reserva
     for (int n = 0; n < total; n++) {
         Medidor::incrementarIteraciones();
         if (!leerLinea(f, linea)) { errorArchivo("mensajes.txt", n + 2, "faltan registros"); return false; }
@@ -431,7 +452,8 @@ bool Almacenamiento::cargarMensajes(Lista<Usuario>& usuarios, Lista<Mensaje>& me
         if (p) p = tomarCampo(p, r, MAX_CORTO);
         if (p) p = tomarCampo(p, fe, MAX_CORTO);
         if (p) p = tomarCampo(p, le, MAX_CORTO);
-        if (p) tomarResto(p, texto, MAX_TEXTO);
+        int largoTexto = 0;
+        if (p) largoTexto = tomarResto(p, texto, MAX_TEXTO);
         bool okE, okR, okL;
         int emisor = aEntero(e, okE);
         int receptor = aEntero(r, okR);
@@ -441,13 +463,17 @@ bool Almacenamiento::cargarMensajes(Lista<Usuario>& usuarios, Lista<Mensaje>& me
             errorArchivo("mensajes.txt", n + 2, "registro mal formado");
             return false;
         }
-        Mensaje m(emisor, receptor, Cadena(texto), fecha);
+        // El mensaje se llena directamente en su lugar de la lista central: el texto se copia una sola vez
+        Mensaje& m = mensajes.agregarVacio();
+        m.setIdEmisor(emisor);
+        m.setIdReceptor(receptor);
+        m.setFechaEnvio(fecha);
+        m.setLeido(leido == 1);
+        m.setContenido(texto, static_cast<size_t>(largoTexto));
         if (m.getContenido().estaVacia()) {
             errorArchivo("mensajes.txt", n + 2, "texto vacio o de mas de 512 caracteres");
             return false;
         }
-        m.setLeido(leido == 1);
-        mensajes.agregar(m);
         int posicion = static_cast<int>(mensajes.getTamanio()) - 1;
         usuarios[static_cast<size_t>(emisor)].registrarEnviado(posicion);
         usuarios[static_cast<size_t>(receptor)].registrarRecibido(posicion);
@@ -476,8 +502,9 @@ bool Almacenamiento::cargarAlbumes(Lista<Usuario>& usuarios) {
         Medidor::incrementarIteraciones();
         if (!leerLinea(f, linea)) { errorArchivo("albumes.txt", n + 2, "faltan registros"); return false; }
         char u[MAX_CORTO], nombre[MAX_CORTO], pr[MAX_CORTO];
+        int lNombre = 0;
         const char* p = tomarCampo(linea, u, MAX_CORTO);
-        if (p) p = tomarCampo(p, nombre, MAX_CORTO);
+        if (p) p = tomarCampo(p, nombre, MAX_CORTO, &lNombre);
         if (p) tomarCampo(p, pr, MAX_CORTO);
         bool okU, okP;
         int idUsuario = aEntero(u, okU);
@@ -487,8 +514,13 @@ bool Almacenamiento::cargarAlbumes(Lista<Usuario>& usuarios) {
             return false;
         }
         Usuario& dueno = usuarios[static_cast<size_t>(idUsuario)];
-        Album album(Cadena(nombre), construirRutaAlbum(dueno.getNombre(), Cadena(nombre)), static_cast<Privacidad>(privacidad));
-        dueno.agregarAlbum(album);
+        // El album se llena directamente en su lugar (sin temporal ni copia final)
+        Album& album = dueno.agregarAlbumVacio();
+        album.setNombre(nombre, static_cast<size_t>(lNombre));
+        char rutaAlbum[MAX_RUTA];
+        int lRuta = armarRutaAlbum(rutaAlbum, MAX_RUTA, dueno.getNombre(), album.getNombre());
+        album.setRuta(rutaAlbum, static_cast<size_t>(lRuta));
+        album.setPrivacidad(static_cast<Privacidad>(privacidad));
     }
     std::cout << "  albumes.txt: " << total << " registros" << std::endl;
     return true;
@@ -536,8 +568,14 @@ bool Almacenamiento::cargarFotos(Lista<Usuario>& usuarios) {
             return false;
         }
         Album& album = dueno.obtenerAlbum(posAlbum);
-        Foto foto(fecha, tamano, construirRutaFoto(dueno.getNombre(), album.getNombre(), Cadena(nombre)), likes);
-        album.agregarFoto(foto);
+        // La foto se llena directamente en su lugar del album; la ruta se arma una vez y se copia una vez
+        Foto& foto = album.agregarFotoVacia();
+        foto.setFechaCaptura(fecha);
+        foto.setTamano(tamano);
+        foto.setLikes(likes);
+        char rutaFoto[MAX_RUTA];
+        int lRuta = armarRutaFoto(rutaFoto, MAX_RUTA, dueno.getNombre(), album.getNombre(), nombre);
+        foto.setRuta(rutaFoto, static_cast<size_t>(lRuta));
     }
     std::cout << "  fotos.txt: " << total << " registros" << std::endl;
     return true;

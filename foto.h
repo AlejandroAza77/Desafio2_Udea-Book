@@ -25,6 +25,7 @@ public:
     void setFechaCaptura(const Fecha& nuevaFecha);
     void setTamano(int nuevoTamano);
     void setRuta(const Cadena& nuevaRuta);
+    void setRuta(const char* nuevaRuta, size_t largo);   // copia el texto una sola vez
     void setLikes(int nuevosLikes);
 
 

@@ -37,6 +37,17 @@ Cadena::Cadena(const char* str) {
         mi_strcpy(_buffer, str);
     }
 }
+// Con la longitud conocida no hace falta recorrer el texto para medirlo
+Cadena::Cadena(const char* str, size_t longitud) {
+    _longitud = longitud;
+    _buffer = new char[longitud + 1];
+    for (size_t i = 0; i < longitud; ++i) {
+        Medidor::incrementarIteraciones();
+        _buffer[i] = str[i];
+    }
+    _buffer[longitud] = '\0';
+}
+
 // Constructor de copia
 Cadena::Cadena(const Cadena& otra) {
     _longitud = otra._longitud;
@@ -67,6 +78,18 @@ void Cadena::setTexto(const char* nuevoTexto) {
     delete[] _buffer;
     _buffer = nuevo;
     _longitud = nuevaLongitud;
+}
+
+void Cadena::setTexto(const char* nuevoTexto, size_t longitud) {
+    char* nuevo = new char[longitud + 1];
+    for (size_t i = 0; i < longitud; ++i) {
+        Medidor::incrementarIteraciones();
+        nuevo[i] = nuevoTexto[i];
+    }
+    nuevo[longitud] = '\0';
+    delete[] _buffer;
+    _buffer = nuevo;
+    _longitud = longitud;
 }
 
 bool Cadena::estaVacia() const {

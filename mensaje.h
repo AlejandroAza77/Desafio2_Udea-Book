@@ -32,6 +32,7 @@ public:
     void setIdEmisor(int nuevoEmisor);
     void setIdReceptor(int nuevoReceptor);
     void setContenido(const Cadena& nuevoContenido);   // rechaza vacio o demasiado largo
+    void setContenido(const char* texto, size_t largo); // igual, copiando el texto una sola vez
     void setFechaEnvio(const Fecha& nuevaFecha);
     void setLeido(bool nuevoEstado);
 

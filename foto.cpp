@@ -45,6 +45,10 @@ void Foto::setRuta(const Cadena& nuevaRuta) {
     ruta = nuevaRuta;
 }
 
+void Foto::setRuta(const char* nuevaRuta, size_t largo) {
+    ruta.setTexto(nuevaRuta, largo);
+}
+
 void Foto::setLikes(int nuevosLikes) {
     if (nuevosLikes >= 0) {
         likes = nuevosLikes;

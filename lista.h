@@ -105,6 +105,25 @@ public:
         _tamanio++;
     }
 
+    // Garantiza espacio para al menos 'capacidadMinima' elementos con UNA sola
+    // reserva (sirve cuando se sabe de antemano cuantos elementos van a entrar).
+    void reservar(size_t capacidadMinima) {
+        if (capacidadMinima > _capacidad) {
+            redimensionar(capacidadMinima);
+        }
+    }
+
+    // Agrega un elemento vacio al final y devuelve su referencia para llenarlo
+    // directamente en su sitio (evita construir un temporal y copiarlo despues).
+    T& agregarVacio() {
+        Medidor::incrementarIteraciones();
+        if (_tamanio >= _capacidad) {
+            redimensionar(_capacidad * 2);
+        }
+        _datos[_tamanio] = T();      // limpia el espacio por si guardaba un dato viejo
+        return _datos[_tamanio++];
+    }
+
     // Devuelve la posicion de la primera aparicion, o -1 si no esta
     int buscar(const T& elemento) const {
         for (size_t i = 0; i < _tamanio; ++i) {

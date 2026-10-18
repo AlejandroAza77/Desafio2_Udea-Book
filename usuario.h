@@ -63,11 +63,12 @@ public:
     void setIdxEnviados(const Lista<int>& nuevos);
     void setIdxRecibidos(const Lista<int>& nuevos);
 
-    // --- Credenciales ---
+    // Credenciales
     bool verificarClave(const Cadena& clave) const;
 
-    // --- Albumes ---
+    // Albumes
     void agregarAlbum(const Album& album);
+    Album& agregarAlbumVacio();          // agrega un album vacio y devuelve su referencia
     // Devuelve el album de esa posicion (0 es el primero); la posicion debe ser
     // valida (usar getCantidadAlbumes). Si no lo es, devuelve un album vacio.
     Album& obtenerAlbum(int posicion);
